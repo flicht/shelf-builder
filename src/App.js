@@ -12,12 +12,12 @@ function App() {
   const [slotWidth, setSlotWidth] = useState(1.8);
   const [slotDepth, setSlotDepth] = useState(10);
   const [slotCount, setSlotCount] = useState(7);
-  const [uprightCount, setUprightCount] = useState(2);
+  const [uprightCount, setUprightCount] = useState(3);
   const [scale, setScale] = useState(1.4); // Scale for canvas drawing
   const [shelves, setShelves] = useState([]); // Scale for canvas drawing
   const [widthBetweenUprights, setWidthBetweenUprights] = useState(50);
   const [shelfUnitSize, setShelfUnitSize] = useState(1);
-  const [shelfOverhang, setShelfOverhang] = useState(20);
+  const [shelfOverhang, setShelfOverhang] = useState(10);
   const [toggleShelves, setToggleShelves] = useState(0);
   const canvasRef = useRef(null);
 
@@ -119,6 +119,7 @@ function App() {
     document.body.removeChild(link);
   };
 
+  
   const dCanvas = <div className="canvas-section">
     <canvas
       ref={canvasRef}
@@ -220,6 +221,7 @@ function App() {
             </label>
         <button onClick={downloadSVG}>Download SVG</button>
         <button onClick={doToggleShelves}>Toggle Shelves</button>
+        <a href="https://www.commercialwashroomsltd.co.uk/cubicles/toilet-cubicle-fittings/toilet-cubicle-brackets/u-bracket-aluminium-single-c-1.html">BRACKETS</a>
         <div>
           total width = {(widthBetweenUprights*(uprightCount-1)) + 1*shelfOverhang}
         </div>

@@ -16,16 +16,30 @@ class ShelfWithSlots extends THREE.Mesh {
     
     shape.lineTo(shelfWidth, 0);
     
+    const addNotch = (y) => {
+      const notchSize = 1.4;
+      shape.lineTo(shelfWidth - shelfSlotDepth , y - notchSize);
+      shape.lineTo(shelfWidth - shelfSlotDepth - notchSize , y - notchSize);
+      shape.lineTo(shelfWidth - shelfSlotDepth - notchSize , y + notchSize + slotHeight);
+      shape.lineTo(shelfWidth - shelfSlotDepth , y + notchSize + slotHeight);
+      // shape.lineTo(shelfWidth - shelfSlotDepth, y + 0.5);
+      // shape.lineTo(shelfWidth, y + 0.5);
+      // shape.lineTo(shelfWidth, y);
+    }
+
     // Function to add a slot
     const addSlot = (y) => {
       shape.lineTo(shelfWidth, y);
       shape.lineTo(shelfWidth - shelfSlotDepth, y);
+      addNotch(y);
       y += slotHeight; // Move up to create the slot's height
       shape.lineTo(shelfWidth - shelfSlotDepth, y);
       shape.lineTo(shelfWidth, y);
       return y; // Return the updated y-coordinate
     };
     
+
+
     // Initial slot before the loop
     currentY = addSlot(currentY);
     
