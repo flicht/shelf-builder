@@ -13,9 +13,46 @@ class UprightWithSlots extends THREE.Mesh {
     const spacing = remainingHeight / (slotCount + 1);
     let currentY = spacing;
 
+    const addNotch = (y) => {
+      const notchSize = 1.4;
+      shape.lineTo(width - slotDepth , y - notchSize);
+      shape.lineTo(width - slotDepth - notchSize , y - notchSize);
+      shape.lineTo(width - slotDepth - notchSize , y + notchSize + slotHeight);
+      shape.lineTo(width - slotDepth , y + notchSize + slotHeight);
+    }
+
+    const addRoundNotch = (y) => {
+      const notchSize = 0.8;
+      const controlPointOffset = notchSize; // Adjust this value as needed for the desired curvature
+    
+      // Move to the starting point just before the notch begins
+      shape.lineTo(width - slotDepth, y - notchSize);
+    
+      // Top left curve
+      shape.bezierCurveTo(
+        width - slotDepth - controlPointOffset, y - notchSize, // control point 1 (top left)
+        width - slotDepth - controlPointOffset, y, // control point 2 (bottom left)
+        width - slotDepth - notchSize, y // end point of the curve
+      );
+    
+      // Moving down to the start of the bottom curve using a straight line
+      shape.lineTo(width - slotDepth - notchSize, y + notchSize + slotHeight);
+    
+      // Bottom right curve
+      shape.bezierCurveTo(
+        width - slotDepth - controlPointOffset, y + notchSize + slotHeight, // control point 1 (top right)
+        width - slotDepth - controlPointOffset, y + notchSize + slotHeight + notchSize, // control point 2 (bottom right)
+        width - slotDepth, y + notchSize + slotHeight + notchSize // end point of the curve
+      );
+    
+      // The function implicitly connects back to the starting point
+    }
+    
+
     for (let i = 0; i < slotCount ; i++) {
       shape.lineTo(width, currentY);
       shape.lineTo(width-slotDepth, currentY);
+      addRoundNotch(currentY);
       currentY += slotHeight
       shape.lineTo(width-slotDepth, currentY);
       shape.lineTo(width, currentY);

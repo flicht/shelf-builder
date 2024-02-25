@@ -22,16 +22,40 @@ class ShelfWithSlots extends THREE.Mesh {
       shape.lineTo(shelfWidth - shelfSlotDepth - notchSize , y - notchSize);
       shape.lineTo(shelfWidth - shelfSlotDepth - notchSize , y + notchSize + slotHeight);
       shape.lineTo(shelfWidth - shelfSlotDepth , y + notchSize + slotHeight);
-      // shape.lineTo(shelfWidth - shelfSlotDepth, y + 0.5);
-      // shape.lineTo(shelfWidth, y + 0.5);
-      // shape.lineTo(shelfWidth, y);
+    }
+
+    const addRoundNotch = (y) => {
+      const notchSize = 0.8;
+      const controlPointOffset = notchSize; // Adjust this value as needed for the desired curvature
+    
+      // Move to the starting point just before the notch begins
+      shape.lineTo(width - slotDepth, y - notchSize);
+    
+      // Top left curve
+      shape.bezierCurveTo(
+        shelfWidth - shelfSlotDepth - controlPointOffset, y - notchSize, // control point 1 (top left)
+        shelfWidth - shelfSlotDepth - controlPointOffset, y, // control point 2 (bottom left)
+        shelfWidth - shelfSlotDepth - notchSize, y // end point of the curve
+      );
+    
+      // Moving down to the start of the bottom curve using a straight line
+      shape.lineTo(shelfWidth - shelfSlotDepth - notchSize, y + notchSize + slotHeight);
+    
+      // Bottom right curve
+      shape.bezierCurveTo(
+        shelfWidth - shelfSlotDepth - controlPointOffset, y + notchSize + slotHeight, // control point 1 (top right)
+        shelfWidth - shelfSlotDepth - controlPointOffset, y + notchSize + slotHeight + notchSize, // control point 2 (bottom right)
+        shelfWidth - shelfSlotDepth, y + notchSize + slotHeight + notchSize // end point of the curve
+      );
+    
+      // The function implicitly connects back to the starting point
     }
 
     // Function to add a slot
     const addSlot = (y) => {
       shape.lineTo(shelfWidth, y);
       shape.lineTo(shelfWidth - shelfSlotDepth, y);
-      addNotch(y);
+      addRoundNotch(y);
       y += slotHeight; // Move up to create the slot's height
       shape.lineTo(shelfWidth - shelfSlotDepth, y);
       shape.lineTo(shelfWidth, y);
