@@ -93,7 +93,6 @@ const ShelfVisualizer = ({
         thickness: slotWidth,
       });
       shelf.rotation.x = Math.PI/2
-      // shelf.rotation.z = Math.PI;
       shelf.rotation.y = Math.PI;
       shelf.position.x += width + shelfOverhang;
       shelf.position.z += (-shelfOverhang);
@@ -114,7 +113,7 @@ const ShelfVisualizer = ({
       const time = Date.now() * 0.001;
       sceneRef.current.children.forEach(child => {
         if (child instanceof ShelfWithSlots) {
-          child.position.x = ((toggleShelves) * ( 0.5*(Math.sin(time)+1) * width )+width+slotDepth);
+          child.position.x = width + shelfOverhang + toggleShelves*width*(Math.sin(time)+1);
         }
       });
       rendererRef.current.render(sceneRef.current, cameraRef.current);
