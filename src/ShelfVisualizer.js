@@ -32,7 +32,7 @@ const ShelfVisualizer = ({
     const { clientWidth: screenWidth, clientHeight: screenHeight } = mountRef.current;
     if (!cameraRef.current) {
       cameraRef.current = new THREE.PerspectiveCamera(65, screenWidth / screenHeight, 0.1, 1000);
-      cameraRef.current.position.set(250, 100, 200);
+      cameraRef.current.position.set(250, 50, 200);
     }
 
     if (!rendererRef.current) {
