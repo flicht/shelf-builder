@@ -29,10 +29,10 @@ class ShelfWithSlots extends THREE.Mesh {
       const controlPointOffset = notchSize; // Adjust this value as needed for the desired curvature
     
       // Move to the starting point just before the notch begins
-      shape.lineTo(width - slotDepth + notchSize, y - notchSize);
+      const startingPointX = shelfWidth - shelfSlotDepth + notchSize
+      shape.lineTo(startingPointX, y - notchSize);
     
       // Top left curve
-      const startingPointX = shelfWidth - shelfSlotDepth + notchSize
       shape.bezierCurveTo(
        startingPointX - controlPointOffset, y - notchSize, // control point 1 (top left)
         startingPointX - controlPointOffset, y, // control point 2 (bottom left)
