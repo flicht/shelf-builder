@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/shelf-builder/static/css/main.28144c4e.css",
-    "main.js": "/shelf-builder/static/js/main.037d3a50.js",
+    "main.js": "/shelf-builder/static/js/main.ee6c8fac.js",
     "static/js/453.ecedb63b.chunk.js": "/shelf-builder/static/js/453.ecedb63b.chunk.js",
     "index.html": "/shelf-builder/index.html",
     "main.28144c4e.css.map": "/shelf-builder/static/css/main.28144c4e.css.map",
-    "main.037d3a50.js.map": "/shelf-builder/static/js/main.037d3a50.js.map",
+    "main.ee6c8fac.js.map": "/shelf-builder/static/js/main.ee6c8fac.js.map",
     "453.ecedb63b.chunk.js.map": "/shelf-builder/static/js/453.ecedb63b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.28144c4e.css",
-    "static/js/main.037d3a50.js"
+    "static/js/main.ee6c8fac.js"
   ]
 }
