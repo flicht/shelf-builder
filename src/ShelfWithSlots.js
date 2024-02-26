@@ -15,6 +15,7 @@ class ShelfWithSlots extends THREE.Mesh {
     let currentY = overhang
     
     shape.lineTo(shelfWidth, 0);
+    // shape.bezierCurveTo(shelfWidth, 0);
     
     const notchSize = 0.8;
     const addNotch = (y) => {

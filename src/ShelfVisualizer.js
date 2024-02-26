@@ -114,7 +114,7 @@ const ShelfVisualizer = ({
       const time = Date.now() * 0.001;
       sceneRef.current.children.forEach(child => {
         if (child instanceof ShelfWithSlots) {
-          child.position.x = ((toggleShelves+1) * (width + shelfOverhang));
+          child.position.x = ((toggleShelves) * ( 0.5*(Math.sin(time)+1) * width )+width+slotDepth);
         }
       });
       rendererRef.current.render(sceneRef.current, cameraRef.current);
