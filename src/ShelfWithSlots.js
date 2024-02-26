@@ -16,8 +16,8 @@ class ShelfWithSlots extends THREE.Mesh {
     
     shape.lineTo(shelfWidth, 0);
     
+    const notchSize = 0.8;
     const addNotch = (y) => {
-      const notchSize = 1.4;
       shape.lineTo(shelfWidth - shelfSlotDepth , y - notchSize);
       shape.lineTo(shelfWidth - shelfSlotDepth - notchSize , y - notchSize);
       shape.lineTo(shelfWidth - shelfSlotDepth - notchSize , y + notchSize + slotHeight);
@@ -25,7 +25,6 @@ class ShelfWithSlots extends THREE.Mesh {
     }
 
     const addRoundNotch = (y) => {
-      const notchSize = 0.8;
       const controlPointOffset = notchSize; // Adjust this value as needed for the desired curvature
     
       // Move to the starting point just before the notch begins
@@ -35,17 +34,17 @@ class ShelfWithSlots extends THREE.Mesh {
       shape.bezierCurveTo(
         shelfWidth - shelfSlotDepth - controlPointOffset, y - notchSize, // control point 1 (top left)
         shelfWidth - shelfSlotDepth - controlPointOffset, y, // control point 2 (bottom left)
-        shelfWidth - shelfSlotDepth - notchSize, y // end point of the curve
+        shelfWidth - shelfSlotDepth - notchSize, y  // end point of the curve
       );
     
       // Moving down to the start of the bottom curve using a straight line
-      shape.lineTo(shelfWidth - shelfSlotDepth - notchSize, y + notchSize + slotHeight);
+      shape.lineTo(shelfWidth - shelfSlotDepth - notchSize, y + slotHeight);
     
       // Bottom right curve
       shape.bezierCurveTo(
-        shelfWidth - shelfSlotDepth - controlPointOffset, y + notchSize + slotHeight, // control point 1 (top right)
-        shelfWidth - shelfSlotDepth - controlPointOffset, y + notchSize + slotHeight + notchSize, // control point 2 (bottom right)
-        shelfWidth - shelfSlotDepth, y + notchSize + slotHeight + notchSize // end point of the curve
+        shelfWidth - shelfSlotDepth - controlPointOffset, y + slotHeight, // control point 1 (top right)
+        shelfWidth - shelfSlotDepth - controlPointOffset, y + slotHeight + notchSize, // control point 2 (bottom right)
+        shelfWidth - shelfSlotDepth, y + slotHeight + notchSize // end point of the curve
       );
     
       // The function implicitly connects back to the starting point

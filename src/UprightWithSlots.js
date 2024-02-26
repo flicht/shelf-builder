@@ -36,13 +36,13 @@ class UprightWithSlots extends THREE.Mesh {
       );
     
       // Moving down to the start of the bottom curve using a straight line
-      shape.lineTo(width - slotDepth - notchSize, y + notchSize + slotHeight);
+      shape.lineTo(width - slotDepth - notchSize, y + slotHeight);
     
       // Bottom right curve
       shape.bezierCurveTo(
-        width - slotDepth - controlPointOffset, y + notchSize + slotHeight, // control point 1 (top right)
-        width - slotDepth - controlPointOffset, y + notchSize + slotHeight + notchSize, // control point 2 (bottom right)
-        width - slotDepth, y + notchSize + slotHeight + notchSize // end point of the curve
+        width - slotDepth - controlPointOffset, y + slotHeight, // control point 1 (top right)
+        width - slotDepth - controlPointOffset, y + slotHeight + notchSize, // control point 2 (bottom right)
+        width - slotDepth, y + notchSize + slotHeight // end point of the curve
       );
     
       // The function implicitly connects back to the starting point
