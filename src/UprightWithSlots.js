@@ -21,28 +21,29 @@ class UprightWithSlots extends THREE.Mesh {
       shape.lineTo(width - slotDepth , y + notchSize + slotHeight);
     }
 
+    const notchSize = 0.8;
     const addRoundNotch = (y) => {
-      const notchSize = 0.8;
       const controlPointOffset = notchSize; // Adjust this value as needed for the desired curvature
     
       // Move to the starting point just before the notch begins
-      shape.lineTo(width - slotDepth, y - notchSize);
+      shape.lineTo(width - slotDepth + notchSize, y - notchSize);
+
     
       // Top left curve
       shape.bezierCurveTo(
-        width - slotDepth - controlPointOffset, y - notchSize, // control point 1 (top left)
-        width - slotDepth - controlPointOffset, y, // control point 2 (bottom left)
-        width - slotDepth - notchSize, y // end point of the curve
+        width - slotDepth - controlPointOffset + notchSize, y - notchSize, // control point 1 (top left)
+        width - slotDepth - controlPointOffset + notchSize, y, // control point 2 (bottom left)
+        width - slotDepth - notchSize + notchSize, y // end point of the curve
       );
     
       // Moving down to the start of the bottom curve using a straight line
-      shape.lineTo(width - slotDepth - notchSize, y + slotHeight);
+      shape.lineTo(width - slotDepth - notchSize + notchSize, y + slotHeight);
     
       // Bottom right curve
       shape.bezierCurveTo(
-        width - slotDepth - controlPointOffset, y + slotHeight, // control point 1 (top right)
-        width - slotDepth - controlPointOffset, y + slotHeight + notchSize, // control point 2 (bottom right)
-        width - slotDepth, y + notchSize + slotHeight // end point of the curve
+        width - slotDepth - controlPointOffset + notchSize, y + slotHeight, // control point 1 (top right)
+        width - slotDepth - controlPointOffset + notchSize, y + slotHeight + notchSize, // control point 2 (bottom right)
+        width - slotDepth + notchSize, y + notchSize + slotHeight // end point of the curve
       );
     
       // The function implicitly connects back to the starting point
@@ -51,10 +52,10 @@ class UprightWithSlots extends THREE.Mesh {
 
     for (let i = 0; i < slotCount ; i++) {
       shape.lineTo(width, currentY);
-      shape.lineTo(width-slotDepth, currentY);
+      shape.lineTo(width-slotDepth+notchSize, currentY);
       addRoundNotch(currentY);
       currentY += slotHeight
-      shape.lineTo(width-slotDepth, currentY);
+      shape.lineTo(width-slotDepth+notchSize, currentY);
       shape.lineTo(width, currentY);
       currentY += spacing;
     }

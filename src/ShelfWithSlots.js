@@ -28,23 +28,24 @@ class ShelfWithSlots extends THREE.Mesh {
       const controlPointOffset = notchSize; // Adjust this value as needed for the desired curvature
     
       // Move to the starting point just before the notch begins
-      shape.lineTo(width - slotDepth, y - notchSize);
+      shape.lineTo(width - slotDepth + notchSize, y - notchSize);
     
       // Top left curve
+      const startingPointX = shelfWidth - shelfSlotDepth + notchSize
       shape.bezierCurveTo(
-        shelfWidth - shelfSlotDepth - controlPointOffset, y - notchSize, // control point 1 (top left)
-        shelfWidth - shelfSlotDepth - controlPointOffset, y, // control point 2 (bottom left)
-        shelfWidth - shelfSlotDepth - notchSize, y  // end point of the curve
+       startingPointX - controlPointOffset, y - notchSize, // control point 1 (top left)
+        startingPointX - controlPointOffset, y, // control point 2 (bottom left)
+        shelfWidth - shelfSlotDepth, y  // end point of the curve
       );
     
       // Moving down to the start of the bottom curve using a straight line
-      shape.lineTo(shelfWidth - shelfSlotDepth - notchSize, y + slotHeight);
+      shape.lineTo(shelfWidth - shelfSlotDepth, y + slotHeight);
     
       // Bottom right curve
       shape.bezierCurveTo(
-        shelfWidth - shelfSlotDepth - controlPointOffset, y + slotHeight, // control point 1 (top right)
-        shelfWidth - shelfSlotDepth - controlPointOffset, y + slotHeight + notchSize, // control point 2 (bottom right)
-        shelfWidth - shelfSlotDepth, y + slotHeight + notchSize // end point of the curve
+        startingPointX - controlPointOffset, y + slotHeight, // control point 1 (top right)
+        startingPointX - controlPointOffset, y + slotHeight + notchSize, // control point 2 (bottom right)
+        startingPointX, y + slotHeight + notchSize // end point of the curve
       );
     
       // The function implicitly connects back to the starting point
@@ -53,10 +54,10 @@ class ShelfWithSlots extends THREE.Mesh {
     // Function to add a slot
     const addSlot = (y) => {
       shape.lineTo(shelfWidth, y);
-      shape.lineTo(shelfWidth - shelfSlotDepth, y);
+      shape.lineTo(shelfWidth - shelfSlotDepth + notchSize, y);
       addRoundNotch(y);
       y += slotHeight; // Move up to create the slot's height
-      shape.lineTo(shelfWidth - shelfSlotDepth, y);
+      shape.lineTo(shelfWidth - shelfSlotDepth + notchSize, y);
       shape.lineTo(shelfWidth, y);
       return y; // Return the updated y-coordinate
     };
