@@ -11,15 +11,18 @@ import BoxShelfBlock from "./BoxShelfBlock";
 import { Box } from "@react-three/drei";
 
 function App() {
+
+  const [shelfType, setShelfType] = useState(true);
   
   return (
     <div className="App">
       <header className="App-header">
         <h1>Shelf Visualizer</h1>
       </header>
-      {/* <ShelfBlock /> */}
-      <div style={{ width: '50vw', height: '50vh' }}>
-        <BoxShelfBlock />
+      <button onClick={() => setShelfType(!shelfType)}>Switch shelf Builder</button>
+      <div style={{ width: '100vw', height: '50vh' }}>
+        {shelfType && <BoxShelfBlock />}
+        {!shelfType && <ShelfBlock /> }
         </div>
     </div>
   );  
