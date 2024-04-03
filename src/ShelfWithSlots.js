@@ -6,6 +6,7 @@ class ShelfWithSlots extends THREE.Mesh {
     const shape = new THREE.Shape();
     shape.moveTo(0, 0);
     
+    
     // Calculate the spacing between slots and add them to the shape
     const shelfSlotDepth  = width - slotDepth
     const totalSlotHeight = (unitSize + 1) * slotHeight;
@@ -91,6 +92,7 @@ shape.lineTo(0, 0);
     const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
 
     // Create the material
+    
     const material = new THREE.MeshPhongMaterial({ color: 'salmon' });
     // Call the Mesh constructor
     super(geometry, material);
