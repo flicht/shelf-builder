@@ -20,7 +20,7 @@ function App() {
         <h1>Shelf Visualizer</h1>
       </header>
       <button onClick={() => setShelfType(!shelfType)}>Switch shelf Builder</button>
-      <div style={{ width: '100vw', height: '50vh' }}>
+      <div style={{ width: '50vw', height: '50vh' }}>
         {shelfType && <BoxShelfBlock />}
         {!shelfType && <ShelfBlock /> }
         </div>
