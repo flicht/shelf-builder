@@ -18,7 +18,7 @@ function App() {
         <h1>Shelf Visualizer</h1>
       </header>
       {/* <ShelfBlock /> */}
-      <div style={{ width: '80vw', height: '50vh' }}>
+      <div style={{ width: '50vw', height: '50vh' }}>
         <BoxShelfBlock />
         </div>
     </div>

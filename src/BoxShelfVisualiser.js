@@ -22,7 +22,7 @@ const BoxShelfVisualiser = ({ height = 2, width = 1, depth = 1, materialThicknes
 
     useEffect(() => {
         if (!initialized) {
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(window.innerWidth*0.7, window.innerHeight*0.7);
             renderer.setClearColor(0xffffff); // Set background color to white
             mountRef.current.appendChild(renderer.domElement);
     
@@ -293,7 +293,7 @@ const render = () => {
     // Ensure the scene is re-rendered if the window is resized
     useEffect(() => {
         const handleResize = () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.aspect = (window.innerWidth / window.innerHeight)/2;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
             render();
