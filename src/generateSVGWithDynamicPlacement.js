@@ -1,16 +1,23 @@
+/**
+ * Packs rectangular parts onto sheets of a fixed size, row by row, and
+ * returns one SVG per sheet along with the parts placed on it.
+ */
 function generateSVGWithDynamicPlacementAndRetry(objects, sheetWidth, sheetHeight, spacing) {
-    let remainingObjects = [...objects]; // Clone the objects array for manipulation
-    let sheets = []; // Holds arrays of SVG strings, each representing a sheet
-    let sheetId = 0; // Track sheet numbers for debugging or identification
+    let remainingObjects = [...objects];
+    const sheets = [];
+    let sheetId = 0;
 
     while (remainingObjects.length > 0) {
-        let {placed, unplaced} = placeObjectsOnSheet(remainingObjects, sheetWidth, sheetHeight, spacing);
+        const { placed, unplaced } = placeObjectsOnSheet(remainingObjects, sheetWidth, sheetHeight, spacing);
         if (placed.length === 0) {
             console.error("An object is too big to fit on any sheet:", unplaced);
             break; // Prevents infinite loop if an object is too large to fit
         }
-        sheets.push(generateSVG(placed, sheetWidth, sheetHeight, sheetId++));
-        remainingObjects = unplaced; // Try to place the unplaced objects on a new sheet
+        sheets.push({
+            svg: generateSVG(placed, sheetWidth, sheetHeight, sheetId++),
+            parts: placed,
+        });
+        remainingObjects = unplaced;
     }
 
     return sheets;
@@ -18,27 +25,25 @@ function generateSVGWithDynamicPlacementAndRetry(objects, sheetWidth, sheetHeigh
 
 function placeObjectsOnSheet(objects, sheetWidth, sheetHeight, spacing) {
     let currentX = 0, currentY = 0, rowHeight = 0;
-    let placed = [], unplaced = [];
+    const placed = [], unplaced = [];
 
     objects.forEach(obj => {
         if (obj.width > sheetWidth || obj.height > sheetHeight) {
-            unplaced.push(obj); // Skip objects that can't fit on the sheet at all
+            unplaced.push(obj);
             return;
         }
 
         if (currentX + obj.width + spacing > sheetWidth) {
-            // Move to the next row
             currentY += rowHeight + spacing;
             currentX = 0;
             rowHeight = 0;
         }
 
         if (currentY + obj.height + spacing > sheetHeight) {
-            unplaced.push(obj); // Can't fit on this sheet, try the next one
+            unplaced.push(obj);
             return;
         }
 
-        // Place the object
         placed.push({ ...obj, x: currentX, y: currentY });
         currentX += obj.width + spacing;
         rowHeight = Math.max(rowHeight, obj.height);
@@ -47,9 +52,18 @@ function placeObjectsOnSheet(objects, sheetWidth, sheetHeight, spacing) {
     return { placed, unplaced };
 }
 
+const round = (n) => Math.round(n * 100) / 100;
+
 function generateSVG(objects, sheetWidth, sheetHeight, sheetId) {
-    let svgContent = objects.map(obj => `<rect x="${obj.x}" y="${obj.y}" width="${obj.width}" height="${obj.height}" style="stroke:black; fill:none;" />`).join('\n');
-    return `<svg id="sheet-${sheetId}" width="${sheetWidth}" height="${sheetHeight}" xmlns="http://www.w3.org/2000/svg">\n${svgContent}\n</svg>`;
+    const parts = objects
+        .map(obj => `  <rect class="part" x="${round(obj.x)}" y="${round(obj.y)}" width="${round(obj.width)}" height="${round(obj.height)}" fill="none" stroke="black" stroke-width="0.2" />`)
+        .join('\n');
+    return [
+        `<svg id="sheet-${sheetId}" width="${sheetWidth}" height="${sheetHeight}" viewBox="0 0 ${sheetWidth} ${sheetHeight}" xmlns="http://www.w3.org/2000/svg">`,
+        `  <rect class="sheet" x="0" y="0" width="${sheetWidth}" height="${sheetHeight}" fill="none" stroke="none" />`,
+        parts,
+        `</svg>`,
+    ].join('\n');
 }
 
 export default generateSVGWithDynamicPlacementAndRetry;
